@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<h3> Comprehensive Report of Diagnosed Patients</h3>
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+
+<table>
+       <tr>
+            <th>Nos:</th>
+           <th>Name of Patients</th>
+           <th>IOP Response</th>
+       </tr>
+       
+       {% for pred in predict %}
+       <tr>
+           
+            <td>{{pred.id}}</td>
+            <td>{{pred.name}}</td>
+            <td> {% if pred.classes == 0 %} 
+                Not Responding
+                {% else %}
+                Responding
+                {% endif %}
+            </td> 
+      </tr>
+      {% endfor %}
+</table>
+
+<nav aria-label="...">
+    <ul class="pager">
+        <li class="previous{% if not prev_url %} disabled{% endif %}">
+            <a href="{{ prev_url or '#' }}">
+                <span aria-hidden="true">&larr;</span> {{ _('Newer posts') }}
+            </a>
+        </li>
+        <li class="next{% if not next_url %} disabled{% endif %}">
+            <a href="{{ next_url or '#' }}">
+                {{ _('Older posts') }} <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{% endblock %}

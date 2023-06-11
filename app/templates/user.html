@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+    <table class="table table-hover">
+        <tr>
+            <td width="256px">
+                {% if user.profile_pic %}
+                <img src="{{ url_for('static', filename='images/' + user.profile_pic)}}"
+                width="256">
+                {% else %}
+                <img src="{{ url_for('static', filename='images/default.png')}}"
+                width="200">
+                {% endif %}
+            </td>
+            <td>
+                <h1>{{ _('User') }}: {{ user.username }}</h1>
+                <h4>{{ _('Name') }}: {{ user.name }}</h4>
+                <h4>{{ _('Email') }}: {{ user.email }}</h4>
+                <h4>{{ _('Phone') }}: {{ user.phone}}</h4>
+                <h4>{{ _('Address') }}: {{ user.location }}</h4>
+
+                {% if user.last_seen %}
+                <p>{{ _('Last seen on') }}: {{ moment(user.last_seen).format('LLL') }}</p>
+                {% endif %}
+               
+                 {% if current_user.is_administrator() %}
+                    <a class="btn btn-danger" href="{{ url_for('main.diagnose',username=user.username)  }}">{{ _('Diagnose') }}</a>
+                    {% endif %}
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        <h1>Patience History</h1>
+        <br>  
+    </div>
+
+    <table>
+        <tr>
+            {% for predict in predicts %}
+            <td>
+                <h4>{{ _('Record Before Steriod') }}: </h4>
+                <h4>{{ _('Record After Steriod') }}: </h4>
+                <h4>{{ _('Condition') }}: </h4>
+                <h4>{{ _('BP Status') }}: </h4>
+                <h4>{{ _('Predicted IOP') }}: </h4>
+            </td>
+
+            <td>
+                <h4> {{ predict.bsteroid }}</h4>
+                <h4> {{ predict.asteroid }}</h4>
+                <h4> {{ predict.conditions}}</h4>
+                <h4> {{ predict.bp}}</h4>
+                <h4> {{ predict.classes}}</h4>
+
+            </td>
+        </tr>
+        {% endfor %} 
+    </table>
+    <br>
+    <p> <strong>IOp of 0 means Not Responding  while 1 means Responding</strong></p>
+{% endblock %}

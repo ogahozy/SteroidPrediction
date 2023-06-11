@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<h1>{{ _('Analysis Result') }}</h1>
+        <h2> Your IOP result shows that your are <strong>{{prediction}}</strong> to Steroid</h2>
+    <br>
+   
+    <a href="{{ url_for('main.explore') }}">Back to Explore Page</a>
+    {% endblock %}

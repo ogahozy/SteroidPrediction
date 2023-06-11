@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<h1>{{ _('Diagnosing') }} Patients: {{user.name}}</h1>
+<br>
+
+<form  method="POST" action="{{url_for('main.diagnose',username=user.username)}}">   
+    {{wtf.quick_form(form) }}
+</form> 
+
+    {% endblock %}
